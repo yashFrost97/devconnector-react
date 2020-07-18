@@ -8,6 +8,8 @@ import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import CreateProfile from "./components/profile-forms/CreateProfile";
+
 import "./App.css";
 
 // redux
@@ -17,32 +19,45 @@ import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 
 if (localStorage.token) {
-  setAuthToken(localStorage.token);
+	setAuthToken(localStorage.token);
 }
 
 const App = () => {
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, []);
-  // empty brackets makes it run only once
-  return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <Route exact path="/" component={Landing} />
-          <section className="container">
-            <Alert />
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-          </section>
-        </Fragment>
-      </Router>
-    </Provider>
-  );
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
+	// empty brackets makes it run only once
+	return (
+		<Provider store={store}>
+			<Router>
+				<Fragment>
+					<Navbar />
+					<Route exact path="/" component={Landing} />
+					<section className="container">
+						<Alert />
+						<Switch>
+							<Route
+								exact
+								path="/register"
+								component={Register}
+							/>
+							<Route exact path="/login" component={Login} />
+							<PrivateRoute
+								exact
+								path="/dashboard"
+								component={Dashboard}
+							/>
+							<PrivateRoute
+								exact
+								path="/create-profile"
+								component={CreateProfile}
+							/>
+						</Switch>
+					</section>
+				</Fragment>
+			</Router>
+		</Provider>
+	);
 };
 
 export default App;
