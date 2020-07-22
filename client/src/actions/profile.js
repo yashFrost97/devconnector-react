@@ -17,6 +17,8 @@ export const getCurrentProfile = () => async (dispatch) => {
 		const res = await axios.get("/api/profile/me");
 		dispatch({ type: GET_PROFILE, payload: res.data });
 	} catch (error) {
+		dispatch({ type: CLEAR_PROFILE });
+
 		dispatch({
 			type: PROFILE_ERROR,
 			payload: {
